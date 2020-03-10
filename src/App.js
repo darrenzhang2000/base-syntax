@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import "./App.css"
 import UserInput from "./UserInput/UserInput"
 import UserOutput from "./UserOutput/UserOutput"
-import { render } from "@testing-library/react"
 
 class App extends Component {
     state = {
@@ -11,9 +10,14 @@ class App extends Component {
     }
 
     handleOnClick = () => {
-        console.log('blueberries')
+        console.log("blueberries")
         this.setState({ age: this.state.age - 1 })
-        console.log('breadfruit', this.state.age)
+        console.log("breadfruit", this.state.age)
+    }
+
+    handleChange = event => {
+        console.log("apricots", event.target.value)
+        this.setState({ inputElement: event.target.value })
     }
 
     componentDidMount = () => {
@@ -23,7 +27,7 @@ class App extends Component {
         return (
             <div className="App">
                 <p>Acerola</p>
-                <UserInput inputElement="apple" />
+                <UserInput inputElement="apple" onChange={this.handleChange} />
                 <UserOutput user={this.state.user} />
                 <button onClick={this.handleOnClick}>{this.state.age}</button>
             </div>
