@@ -1,18 +1,15 @@
-import React, { Component } from "react"
-import "./UserInput.css"
+import React from 'react';
 
-class UserInput extends Component {
-    state = {
-        inputElement: this.props.inputElement,
-    }
+const userInput = (props) => {
+    const inputStyle = {
+        border: '2px solid red'
+    };
 
-    render() {
-        return (
-            <div className='UserInput'>
-                <input type="text" value={this.state.inputElement} onChange={this.props.handleChange} />
-            </div>
-        )
-    }
-}
+    return <input 
+        type="text" 
+        style={inputStyle}
+        onChange={props.changed} 
+        value={props.currentName} />;
+};
 
-export default UserInput
+export default userInput;
