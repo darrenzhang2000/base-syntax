@@ -3,7 +3,8 @@
 }
 
 .person{
-  border: 2px dashed rgb(104, 213, 153);
+  border: 1px solid #eee;
   width: 60%;
-  margin: 5px auto
+  margin: 5px auto;
+  box-shadow: 0 2px 3px #ccc
 }

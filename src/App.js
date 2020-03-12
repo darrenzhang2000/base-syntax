@@ -25,7 +25,8 @@ class App extends Component {
             }
         ],
         id: 4,
-        inputLength: null
+        inputLength: null,
+        inputValue: "Elderberries"
     }
 
     usernameChangedHandler = event => {
@@ -48,19 +49,43 @@ class App extends Component {
 
     rotateName = () => {
         let newPeople = this.state.persons.slice(1)
+
         console.log("cherimoya", newPeople)
         if (this.state.persons.length) newPeople.push(this.state.persons[0])
-        this.setState({ people: newPeople })
+        this.setState({ persons: newPeople })
         console.log(this.state.persons[0].name)
     }
 
-    inputChange = (event) =>{
+    inputChange = event => {
         console.log(event.target.value.length)
-        this.setState({inputLength: event.target.value.length})
+        this.setState({ inputLength: event.target.value.length })
+        this.setState({ inputValue: event.target.value })
+    }
+
+    onCharClick = (index) => {
+        const text = this.state.inputValue.split("")
+        text.splice(index, 1)
+        const updatedText = text.join("")
+        this.setState({inputValue: updatedText})
     }
 
     render() {
-        console.log("rendered")
+        let charList = this.state.inputValue
+            .split("")
+            .map((c, index) => (
+                <Char item={c} clicked={() => this.onCharClick(index)} key={index} />
+            ))
+
+
+        let style =  { textAlign: "center", backgroundColor:'green', color:'white' }   
+
+        let person = this.state.displayUsers ? (
+            <div style={{textAlign: "center"}}>
+                <UserOutput userName={this.state.username} />
+                <UserOutput userName={this.state.username} />
+                <UserOutput userName="Max" />{" "}
+            </div>
+        ) : style.backgroundColor = 'red'
         return (
             <div className="App">
                 <h3>People List</h3>
@@ -78,26 +103,19 @@ class App extends Component {
                 />
                 <br />
                 {/* {display} */}
-                <button onClick={this.handleOnClick}>Swap Name</button>
-                {this.state.displayUsers ? (
-                    <div style={{ textAlign: "center" }}>
-                        <UserOutput userName={this.state.username} />
-                        <UserOutput userName={this.state.username} />
-                        <UserOutput userName="Max" />{" "}
-                    </div>
-                ) : null}
-                <UserInput
-                    changed={this.inputChange}
-                />
+                <button onClick={this.handleOnClick} style={style}>Swap Name</button>
+                
+                {person}
+                <UserInput changed={this.inputChange} />
                 <p>Length of Input: {this.state.inputLength}</p>
-                <Validation inputLength={this.state.inputLength}/>
-                <Char/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                <Validation inputLength={this.state.inputLength} />
+                {charList}
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
             </div>
         )
     }
