@@ -1,10 +1,18 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
-.person{
-  border: 1px solid #eee;
-  width: 60%;
-  margin: 5px auto;
-  box-shadow: 0 2px 3px #ccc
+.person {
+    border: 1px solid #eee;
+    width: 60%;
+    margin: 5px auto;
+    box-shadow: 0 2px 3px #ccc;
+}
+
+.red {
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
 }

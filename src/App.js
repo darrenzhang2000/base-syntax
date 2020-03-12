@@ -5,6 +5,8 @@ import UserInput from "./UserInput/UserInput"
 import UserOutput from "./UserOutput/UserOutput"
 import Validation from "./Validation/Validation"
 import Char from "./Char/Char"
+import Person from "./Person/Person"
+import styled from "styled-components"
 
 class App extends Component {
     state = {
@@ -62,33 +64,68 @@ class App extends Component {
         this.setState({ inputValue: event.target.value })
     }
 
-    onCharClick = (index) => {
+    onCharClick = index => {
         const text = this.state.inputValue.split("")
         text.splice(index, 1)
         const updatedText = text.join("")
-        this.setState({inputValue: updatedText})
+        this.setState({ inputValue: updatedText })
     }
 
     render() {
         let charList = this.state.inputValue
             .split("")
             .map((c, index) => (
-                <Char item={c} clicked={() => this.onCharClick(index)} key={index} />
+                <Char
+                    item={c}
+                    clicked={() => this.onCharClick(index)}
+                    key={index}
+                />
             ))
 
-
-        let style =  { textAlign: "center", backgroundColor:'green', color:'white' }   
+        let style = {
+            textAlign: "center",
+            backgroundColor: "green",
+            color: "white",
+            ":hover": { backgroundColor: "lightgreen", color: "black" }
+        }
+        let StyledButton = styled.button`
+            text-align: center;
+            background-color: $(props => props.alt ? 'red' : 'green');
+            color: white;
+            border: 1px solid blue;
+            &:hover: {
+                background-color: "lightgreen";
+                color: black;
+            }
+        `
 
         let person = this.state.displayUsers ? (
-            <div style={{textAlign: "center"}}>
+            <div style={{ textAlign: "center" }}>
                 <UserOutput userName={this.state.username} />
                 <UserOutput userName={this.state.username} />
                 <UserOutput userName="Max" />{" "}
             </div>
-        ) : style.backgroundColor = 'red'
+        ) : (
+            (style.backgroundColor = "red")
+        )
+        style[":hover"] = {
+            backgroundColor: "pink",
+            color: "black"
+        }
+
+        let classes = []
+        if (this.state.persons.length > 4) classes.push("red")
+        if (this.state.persons.length > 5) classes.push("bold")
         return (
             <div className="App">
                 <h3>People List</h3>
+                <Person name="figs" />
+                <Person name="gooseberries" />
+
+                <StyledButton alt={this.state.displayUsers}>
+                    <p className={classes.join(" ")}>Feijoa</p>
+                </StyledButton>
+                <br />
                 <button onClick={this.addFood}>Add food</button>
                 <button onClick={this.rotateName}>Rotate Name</button>
                 <p>{this.state.persons[0].name}</p>
@@ -103,8 +140,10 @@ class App extends Component {
                 />
                 <br />
                 {/* {display} */}
-                <button onClick={this.handleOnClick} style={style}>Swap Name</button>
-                
+                <button onClick={this.handleOnClick} style={style}>
+                    Swap Name
+                </button>
+
                 {person}
                 <UserInput changed={this.inputChange} />
                 <p>Length of Input: {this.state.inputLength}</p>
