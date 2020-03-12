@@ -10,18 +10,19 @@ class App extends Component {
         displayUsers: true,
         persons: [
             {
-                name: "Jessica",
-                age: 19
+                name: "cherries",
+                id: 1
             },
             {
-                name: "Ian",
-                age: 10
+                name: "Clementine",
+                id: 2
             },
             {
-                name: "Nick",
-                age: 12
+                name: "Coconut Meat",
+                id: 3
             }
-        ]
+        ],
+        id: 4
     }
 
     usernameChangedHandler = event => {
@@ -30,6 +31,24 @@ class App extends Component {
 
     handleOnClick = () => {
         this.setState({ displayUsers: !this.state.displayUsers })
+    }
+
+    addFood = async () => {
+        this.setState({ id: this.state.id + 1 })
+        let newPeople = await [
+            ...this.state.persons,
+            { name: "Carambola", age: 1, id: this.state.id }
+        ]
+        await this.setState({ persons: newPeople })
+        await console.log(this.state.persons[0].name)
+    }
+
+    rotateName = () => {
+        let newPeople = this.state.persons.slice(1)
+        console.log("cherimoya", newPeople)
+        if (this.state.persons.length) newPeople.push(this.state.persons[0])
+        this.setState({ people: newPeople })
+        console.log(this.state.persons[0].name)
     }
 
     render() {
@@ -42,15 +61,18 @@ class App extends Component {
         // ) : (
         //     <div>Users Hidden</div>
         // )
+        console.log("rendered")
         return (
             <div className="App">
                 <h3>People List</h3>
-                {this.state.persons.map(person => 
-                    <div className="person">
+                <button onClick={this.addFood}>Add food</button>
+                <button onClick={this.rotateName}>Rotate Name</button>
+                <p>{this.state.persons[0].name}</p>
+                {this.state.persons.map(person => (
+                    <div className="person" key={person.id}>
                         <p>Name: {person.name}</p>
-                        <p>Age: {person.age}</p>
                     </div>
-                )}
+                ))}
                 <UserInput
                     changed={this.usernameChangedHandler}
                     currentName={this.state.username}
