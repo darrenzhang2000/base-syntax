@@ -2,3 +2,8 @@
   text-align: center;
 }
 
+.person{
+  border: 2px dashed rgb(104, 213, 153);
+  width: 60%;
+  margin: 5px auto
+}
