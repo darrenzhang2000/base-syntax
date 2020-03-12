@@ -3,6 +3,8 @@ import "./App.css"
 
 import UserInput from "./UserInput/UserInput"
 import UserOutput from "./UserOutput/UserOutput"
+import Validation from "./Validation/Validation"
+import Char from "./Char/Char"
 
 class App extends Component {
     state = {
@@ -22,7 +24,8 @@ class App extends Component {
                 id: 3
             }
         ],
-        id: 4
+        id: 4,
+        inputLength: null
     }
 
     usernameChangedHandler = event => {
@@ -51,16 +54,12 @@ class App extends Component {
         console.log(this.state.persons[0].name)
     }
 
+    inputChange = (event) =>{
+        console.log(event.target.value.length)
+        this.setState({inputLength: event.target.value.length})
+    }
+
     render() {
-        // let display = this.state.displayUsers ? (
-        //     <div>
-        //         <UserOutput userName={this.state.username} />
-        //         <UserOutput userName={this.state.username} />
-        //         <UserOutput userName="Max" />
-        //     </div>
-        // ) : (
-        //     <div>Users Hidden</div>
-        // )
         console.log("rendered")
         return (
             <div className="App">
@@ -87,6 +86,18 @@ class App extends Component {
                         <UserOutput userName="Max" />{" "}
                     </div>
                 ) : null}
+                <UserInput
+                    changed={this.inputChange}
+                />
+                <p>Length of Input: {this.state.inputLength}</p>
+                <Validation inputLength={this.state.inputLength}/>
+                <Char/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         )
     }
