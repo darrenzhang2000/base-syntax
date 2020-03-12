@@ -7,6 +7,7 @@ import Validation from "./Validation/Validation"
 import Char from "./Char/Char"
 import Person from "./Person/Person"
 import styled from "styled-components"
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary"
 
 class App extends Component {
     state = {
@@ -90,7 +91,7 @@ class App extends Component {
         }
         let StyledButton = styled.button`
             text-align: center;
-            background-color: $(props => props.alt ? 'red' : 'green');
+            background-color: $(props => props.alt ? "red": "green");
             color: white;
             border: 1px solid blue;
             &:hover: {
@@ -119,8 +120,10 @@ class App extends Component {
         return (
             <div className="App">
                 <h3>People List</h3>
-                <Person name="figs" />
-                <Person name="gooseberries" />
+                <ErrorBoundary>
+                    <Person name="figs" />
+                    <Person name="gooseberries" />
+                </ErrorBoundary>
 
                 <StyledButton alt={this.state.displayUsers}>
                     <p className={classes.join(" ")}>Feijoa</p>
